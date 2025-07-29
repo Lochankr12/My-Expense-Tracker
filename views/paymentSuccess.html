@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment Success</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #f9f9f9;
+      --card-bg: #ffffff;
+      --primary-brand-color: #4a5568;
+      --accent-color: #38a169; /* Green */
+      --border-color: #e2e8f0;
+      --text-dark: #2d3748;
+      --font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: var(--font-family);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .success-wrapper {
+      max-width: 450px;
+      width: 100%;
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 50px -10px rgba(45, 55, 72, 0.1);
+    }
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background-color: var(--accent-color);
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .success-title {
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--text-dark);
+    }
+    .success-text {
+        color: #718096;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+    }
+    .btn-primary-custom {
+      background-color: var(--primary-brand-color);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.2s ease;
+    }
+    .btn-primary-custom:hover {
+      background-color: #2d3748;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-wrapper">
+    <div class="success-icon">✓</div>
+    <h1 class="success-title">Payment Successful!</h1>
+    <p class="success-text">Thank you for upgrading. Your premium features are now active.</p>
+    <a href="/premium" class="btn-primary-custom">Go to Premium Dashboard</a>
+  </div>
+</body>
+</html>

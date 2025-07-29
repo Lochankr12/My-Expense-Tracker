@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #f9f9f9;
+      --card-bg: #ffffff;
+      --primary-brand-color: #4a5568;
+      --secondary-brand-color: #718096;
+      --accent-color: #ed8936; /* Orange */
+      --border-color: #e2e8f0;
+      --text-dark: #2d3748;
+      --font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: var(--font-family);
+    }
+    .main-container {
+      max-width: 900px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .card-custom {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px -5px rgba(45, 55, 72, 0.08);
+      border: 1px solid var(--border-color);
+    }
+    .card-header-bar {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .tracker-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .username-box {
+      background: #f7fafc;
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+    }
+    .premium-badge {
+      background: linear-gradient(45deg, #ed8936, #f6ad55);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+    .btn-primary-custom {
+        background: var(--primary-brand-color);
+        color: #fff;
+        border: none;
+        font-weight: 600;
+    }
+    .btn-primary-custom:hover {
+        background: #2d3748;
+    }
+    .btn-secondary-custom {
+        background-color: #f7fafc;
+        border: 1px solid var(--border-color);
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    .table th {
+        background-color: #f7fafc;
+        border-bottom: 2px solid var(--border-color);
+        font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container main-container">
+    <div class="card-custom">
+      <div class="card-header-bar d-flex justify-content-between align-items-center">
+        <h1 class="tracker-title">Expense Dashboard</h1>
+        <div class="d-flex align-items-center gap-2">
+          <span id="usernameBox" class="username-box">Loading...</span>
+          <span class="premium-badge">⭐ Premium</span>
+        </div>
+      </div>
+      <form id="expenseForm">
+        <div class="row g-3">
+            <div class="col-md-6"><input type="number" id="amount" placeholder="Amount" required class="form-control" /></div>
+            <div class="col-md-6"><input type="text" id="description" placeholder="Description" required class="form-control" /></div>
+            <div class="col-md-6"><select id="category" class="form-select" required><option disabled selected>Category</option><option>Food</option><option>Petrol</option><option>Shopping</option><option>Entertainment</option><option>Travel</option><option>Education</option><option>Healthcare</option><option>Salary</option><option>Others</option></select></div>
+            <div class="col-md-3"><input type="date" id="date" required class="form-control" /></div>
+            <div class="col-md-3"><input type="time" id="time" required class="form-control" /></div>
+            <div class="col-12"><button type="submit" id="submitBtn" class="btn btn-primary-custom w-100">Add Expense</button></div>
+        </div>
+      </form>
+      <ul id="expenseList" class="list-unstyled mt-4"></ul>
+      <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+        <div>
+          <label class="me-2" for="pageSize">Per page:</label>
+          <select id="pageSize" class="form-select d-inline w-auto">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div>
+          <button id="prevPage" class="btn btn-secondary-custom">Previous</button>
+          <span id="pageInfo" class="mx-3 fw-bold"></span>
+          <button id="nextPage" class="btn btn-primary-custom">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-custom">
+      <h2 class="tracker-title fs-4">Leaderboard</h2>
+      <button id="showLeaderboardBtn" class="btn btn-secondary-custom w-100 mt-2">Show Leaderboard</button>
+      <div id="leaderboard" class="mt-3"></div>
+    </div>
+
+    <div class="card-custom">
+      <h2 class="tracker-title fs-4">Reports</h2>
+      <div class="d-flex gap-2 my-3">
+        <button id="dailyBtn" class="btn btn-secondary-custom btn-sm">Daily</button>
+        <button id="monthlyBtn" class="btn btn-secondary-custom btn-sm">Monthly</button>
+        <button id="yearlyBtn" class="btn btn-secondary-custom btn-sm">Yearly</button>
+      </div>
+      <div id="reportResult"></div>
+      <div id="totalSpent" class="mt-3 fw-bold fs-5 text-end"></div>
+      <div class="text-end mt-3"><button id="downloadBtn" class="btn btn-primary-custom btn-sm">Download Report</button></div>
+    </div>
+  </div>
+
+  <script src="/premium.js"></script>
+</body>
+</html>

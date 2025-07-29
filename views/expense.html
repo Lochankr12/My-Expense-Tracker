@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expense Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #f9f9f9;
+      --card-bg: #ffffff;
+      --primary-brand-color: #4a5568;
+      --secondary-brand-color: #718096;
+      --accent-color: #ed8936; /* Orange */
+      --border-color: #e2e8f0;
+      --text-dark: #2d3748;
+      --font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: var(--font-family);
+    }
+    .main-container {
+      max-width: 900px;
+      margin: 40px auto;
+    }
+    .card-custom {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px -5px rgba(45, 55, 72, 0.08);
+      border: 1px solid var(--border-color);
+    }
+    .card-header-bar {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .tracker-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .username-box {
+      background: #f7fafc;
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+    }
+    .btn-accent {
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      transition: background-color 0.2s ease;
+    }
+    .btn-accent:hover {
+      background: #dd6b20;
+    }
+    .btn-primary-custom {
+        background: var(--primary-brand-color);
+        color: #fff;
+        border: none;
+        font-weight: 600;
+    }
+    .btn-primary-custom:hover {
+        background: #2d3748;
+    }
+    .btn-secondary-custom {
+        background-color: #f7fafc;
+        border: 1px solid var(--border-color);
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+    }
+    .expense-list {
+        list-style: none;
+        padding: 0;
+    }
+    .expense-item {
+      background-color: #f7fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .expense-details { flex-grow: 1; }
+    .expense-actions .btn { font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+  <div class="container main-container">
+    <div class="card-custom">
+      <div class="card-header-bar d-flex justify-content-between align-items-center">
+        <h1 class="tracker-title">Expense Tracker</h1>
+        <div class="d-flex align-items-center gap-2">
+            <span id="usernameBox" class="username-box">Loading...</span>
+            <button id="buyPremium" class="btn btn-accent btn-sm">Buy Premium</button>
+        </div>
+      </div>
+
+      <form id="expenseForm">
+        <div class="row g-3">
+            <div class="col-md-6"><input type="number" id="amount" placeholder="Amount (₹)" required class="form-control" /></div>
+            <div class="col-md-6"><input type="text" id="description" placeholder="Description" required class="form-control" /></div>
+            <div class="col-md-6"><select id="category" class="form-select" required><option disabled selected>Choose Category</option><option>Food</option><option>Petrol</option><option>Shopping</option><option>Entertainment</option><option>Travel</option><option>Education</option><option>Healthcare</option><option>Salary</option><option>Rent</option><option>Others</option></select></div>
+            <div class="col-md-6"><input type="text" id="note" placeholder="Add Note (Optional)" class="form-control" /></div>
+            <div class="col-md-6"><input type="date" id="date" required class="form-control" /></div>
+            <div class="col-md-6"><input type="time" id="time" required class="form-control" /></div>
+            <div class="col-12"><button type="submit" id="submitBtn" class="btn btn-primary-custom w-100">Add Expense</button></div>
+        </div>
+      </form>
+
+      <ul id="expenseList" class="expense-list mt-4"></ul>
+
+      <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+        <div>
+          <label class="me-2" for="pageSize">Per page:</label>
+          <select id="pageSize" class="form-select d-inline w-auto">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div>
+          <button id="prevPage" class="btn btn-secondary-custom">Previous</button>
+          <span id="pageInfo" class="mx-3 fw-bold"></span>
+          <button id="nextPage" class="btn btn-primary-custom">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+  <script src="/expense.js"></script>
+</body>
+</html>

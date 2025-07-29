@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expense Tracker - Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #f9f9f9;
+      --card-bg: #ffffff;
+      --primary-brand-color: #4a5568; /* Charcoal */
+      --secondary-brand-color: #718096; /* Slate */
+      --accent-color: #38a169; /* Green */
+      --border-color: #e2e8f0;
+      --text-dark: #2d3748;
+      --text-light: #a0aec0;
+      --font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: var(--font-family);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .auth-wrapper {
+      max-width: 430px;
+      width: 100%;
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 50px -10px rgba(45, 55, 72, 0.1);
+    }
+    .auth-title {
+      font-weight: 700;
+      font-size: 2.25rem;
+      color: var(--text-dark);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .form-control {
+      background-color: #f7fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      height: auto;
+    }
+    .form-control:focus {
+      background-color: var(--card-bg);
+      border-color: var(--primary-brand-color);
+      box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.2);
+    }
+    .btn-primary-custom {
+      background-color: var(--primary-brand-color);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+      border: none;
+      transition: background-color 0.2s ease;
+    }
+    .btn-primary-custom:hover {
+      background-color: #2d3748;
+    }
+    .link-secondary-custom {
+      color: var(--secondary-brand-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .link-secondary-custom:hover {
+      color: var(--primary-brand-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-wrapper">
+    <h1 class="auth-title">Welcome Back</h1>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+      </div>
+      <div class="mb-3">
+        <div class="d-flex justify-content-between">
+          <label for="password" class="form-label fw-semibold">Password</label>
+          <button id="showForgot" type="button" class="btn btn-link p-0 link-secondary-custom">Forgot?</button>
+        </div>
+        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+      </div>
+      <div class="d-grid my-4">
+        <button type="submit" class="btn btn-primary-custom">Login</button>
+      </div>
+      <div class="text-center">
+        <a href="/" class="link-secondary-custom">New User? Sign Up</a>
+      </div>
+    </form>
+    <form id="forgotPasswordForm" class="mt-4 d-none">
+      <div class="mb-3">
+        <label for="forgotEmail" class="form-label fw-semibold">Enter your Email</label>
+        <input type="email" class="form-control" id="forgotEmail" placeholder="you@example.com" required />
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary-custom">Send Reset Link</button>
+        <button id="cancelForgot" type="button" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <script src="/login.js"></script>
+</body>
+</html>

@@ -1,33 +1,33 @@
-const nodemailer = require('nodemailer');
+// utils/nodemailerClient.js (now using Resend instead of nodemailer)
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,          // use STARTTLS on 587
-  secure: false,      // false for 587, true is for 465
-  auth: {
-    user: process.env.GMAIL_USER, // your Gmail
-    pass: process.env.GMAIL_PASS, // Gmail APP password
-  },
-  // Optional but can help with timeouts
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-});
+const RESEND_API_URL = 'https://api.resend.com/emails';
 
 const sendEmail = async ({ to, subject, html }) => {
-  const mailOptions = {
-    from: process.env.GMAIL_USER,
-    to,
-    subject,
-    html,
-  };
-
   try {
-    await transporter.sendMail(mailOptions);
-    console.log('Reset email sent to:', to);
+    const res = await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'onboarding@resend.dev', // Resend default "from", no domain setup needed
+        to: [to],
+        subject,
+        html,
+      }),
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('Resend API error:', res.status, text);
+      throw new Error(`Resend failed with status ${res.status}`);
+    }
+
+    console.log('Reset email sent via Resend to:', to);
   } catch (err) {
-    console.error('Reset email error:', err);
-    throw err; // let your controller send 500 to frontend
+    console.error('Reset email error (Resend):', err);
+    throw err; // controller will return 500 to frontend
   }
 };
 

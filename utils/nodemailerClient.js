@@ -1,8 +1,14 @@
-// utils/nodemailerClient.js (now using Resend instead of nodemailer)
+// utils/nodemailerClient.js - Resend version with testing email
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
 
+// In testing mode Resend allows only your own email
+const TEST_EMAIL = process.env.TEST_EMAIL || 'lochankr12@gmail.com';
+
 const sendEmail = async ({ to, subject, html }) => {
+  // Resend free/test: always send to your own email
+  const actualRecipient = TEST_EMAIL;
+
   try {
     const res = await fetch(RESEND_API_URL, {
       method: 'POST',
@@ -11,8 +17,8 @@ const sendEmail = async ({ to, subject, html }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'onboarding@resend.dev', // Resend default "from", no domain setup needed
-        to: [to],
+        from: 'onboarding@resend.dev', // default Resend "from"
+        to: [actualRecipient],
         subject,
         html,
       }),
@@ -24,10 +30,12 @@ const sendEmail = async ({ to, subject, html }) => {
       throw new Error(`Resend failed with status ${res.status}`);
     }
 
-    console.log('Reset email sent via Resend to:', to);
+    console.log(
+      `Reset email sent via Resend. Requested to: ${to}, actually sent to: ${actualRecipient}`
+    );
   } catch (err) {
     console.error('Reset email error (Resend):', err);
-    throw err; // controller will return 500 to frontend
+    throw err;
   }
 };
 

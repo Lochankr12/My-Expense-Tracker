@@ -26,7 +26,8 @@ exports.createOrder = async (req, res) => {
         customer_email: 'test@example.com',
       },
       order_meta: {
-        return_url: `http://localhost:3000/api/payment-status/${orderId}`
+       return_url: `https://my-expense-tracker-1-a4ya.onrender.com/api/payment-status/${orderId}`,
+
 
       },
       order_expiry_time: expiry
